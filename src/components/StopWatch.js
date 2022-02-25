@@ -177,7 +177,7 @@ const Stopwatch = (props) => {
 				<Grid item style={{ color: 'aquamarine' }}>{laps.lapsList.length > 0 && <Laps laps={laps} />}</Grid>
 			</Grid>
 			<div style={{ marginTop: '35px', marginLeft: '75px' }}>
-				<input placeholder="Online" onChange={onChange} style={{ fontSize: '20px', width: '60%',backgroundColor: 'black', color: 'white', border: '0px' }} />
+				<input placeholder="Online Log" onChange={onChange} style={{ fontSize: '20px', width: '60%',backgroundColor: 'black', color: 'white', border: '0px' }} />
 			</div>
 		</div>
 	);
@@ -189,12 +189,12 @@ const ControlButtons = ({
 	return (
 		< div style={{ display: 'flex', }}>
 			{/* play or pause stopwatch */}
-			<Tooltip title={isActive ? "Pause" : "Play"} style={{ backgroundColor: "white" }}>
+			<Tooltip title={isActive ? "Pause" : "Play"}>
 				<IconButton onClick={() => handelPlayPause()} >
 					{
 						{
-							true: <PauseCircleFilledIcon style={{ fontSize: "15px" }} className={classes.pauseButton} />,
-							false: <PlayCircleFilledIcon style={{ fontSize: "15px" }} className={classes.playButton} />
+							true: <PauseCircleFilledIcon  className={classes.pauseButton} />,
+							false: <PlayCircleFilledIcon  className={classes.playButton} />
 						}[isActive]
 					}
 				</IconButton>

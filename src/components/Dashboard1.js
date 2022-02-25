@@ -36,7 +36,7 @@ export default function Dashboard1(props) {
       </button>
       <div style={{ display: 'flex', marginLeft: '30px', alignItems: "center", marginTop: 50 }}>
         <h2 style={{ marginLeft: '40%', marginBottom: '40px' }}> Desk Area</h2>
-        <Avatar style={{ marginLeft: '1%' }}>{name.substring(0, 1).toUpperCase()}</Avatar>
+        <Avatar style={{ marginLeft: '1%', color:'black' }}>{name.substring(0, 1).toUpperCase()}</Avatar>
         <div style={{ marginLeft: '10px' }}>
           <div className='val' style={{ marginBottom: '30px' }}>
             {onlinevalue}

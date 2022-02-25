@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { auth, db } from "./firebase";
-import { doc, getDoc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { doc, getDoc,} from "firebase/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Cardss = () => {
@@ -25,28 +25,28 @@ const Cardss = () => {
     return (
         <div>
             <div className='cards' style={{ marginTop: '4%', display: 'flex', marginLeft: '20%', }}>
-                <Card style={{ backgroundColor: "blanchedalmond" }}>
+                <Card style={{ backgroundColor: "sandybrown" }}>
                     <CardContent  >
                         <Typography color="textSecondary" gutterBottom style={{ padding: '20px 0px 0px 0px', color: 'black' }}>
                             Online Hours
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ marginLeft: '5%', backgroundColor: 'blanchedalmond' }}  >
+                <Card style={{ marginLeft: '5%', backgroundColor: 'sandybrown' }}  >
                     <CardContent style={{}} >
                         <Typography color="textSecondary" gutterBottom style={{ padding: '24px 18px 12px 11px', color: 'black' }}>
                             Available
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ marginLeft: '5%', backgroundColor: 'blanchedalmond' }}  >
+                <Card style={{ marginLeft: '5%', backgroundColor: 'sandybrown' }}  >
                     <CardContent   >
                         <Typography color="textSecondary" gutterBottom style={{ padding: '24px 35px 12px 28px', color: 'black' }}>
                             Busy
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ marginLeft: '5%', backgroundColor: 'blanchedalmond' }}  >
+                <Card style={{ marginLeft: '5%', backgroundColor: 'sandybrown' }}  >
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom style={{ padding: '24px 35px 12px 28px', color: 'black' }}>
                             Away
@@ -56,7 +56,7 @@ const Cardss = () => {
             </div>
             <div className='cardss' style={{ width: '70%', marginTop: '30px', marginLeft: '12%' }}>
                 <Card >
-                    <CardContent style={{ display: 'flex', backgroundColor: "darkkhaki" }}>
+                    <CardContent style={{ display: 'flex', backgroundColor: "sandybrown" }}>
                         <Typography color="textSecondary" gutterBottom style={{ marginLeft: '10%', color: 'black' }}>
                             Time
                         </Typography>
@@ -70,22 +70,22 @@ const Cardss = () => {
                     {time?.length > 0 &&
                         time?.map((i, x) => {
                             return (
-                                <CardContent style={{ display: 'flex', backgroundColor: "beige" }}>
-                                    <Typography color="textSecondary" gutterBottom style={{ marginLeft: '5%', color: 'black', }}>
+                                <CardContent style={{ display: 'flex', backgroundColor: "black" }}>
+                                    <Typography color="textSecondary" gutterBottom style={{ marginLeft: '5%', color: 'sandybrown', }}>
                                         {new Date(i?.startTime?.seconds * 1000).toUTCString()}-{new Date(i?.endTime?.seconds * 1000).toUTCString()}
                                     </Typography>
-                                    <Typography color="textSecondary" gutterBottom style={{ marginLeft: '15%', color: 'black' }}>
+                                    <Typography color="textSecondary" gutterBottom style={{ marginLeft: '15%', color: 'sandybrown' }}>
                                         {i?.status}
                                     </Typography>
-                                    <Typography color="textSecondary" gutterBottom style={{ marginLeft: '10%', color: 'black' }}>
+                                    <Typography color="textSecondary" gutterBottom style={{ marginLeft: '10%', color: 'sandybrown' }}>
                                         {new Date((i?.endTime?.seconds - i?.startTime?.seconds) * 1000).getSeconds()}
                                     </Typography>
                                 </CardContent>
                             )
                         })
                     }
-                    <CardContent style={{ backgroundColor: "beige" }}>
-                        <Typography color="textSecondary" gutterBottom style={{ marginLeft: '70%', color: "black" }}>
+                    <CardContent style={{ backgroundColor: "black" }}>
+                        <Typography color="textSecondary" gutterBottom style={{ marginLeft: '70%', color: "sandybrown" }}>
                             Total Hours
                         </Typography>
                     </CardContent>

@@ -47,34 +47,34 @@ function Dashboard() {
 
   return (
     <div style={{ flexDirection: "row", display: "flex" }}>
-      <div style={{ background: 'black', color: 'white', width: "20%", height: '100vh' }}>
+      <div style={{ background: 'black', color: 'sandybrown', width: "20%", height: '100vh' }}>
         <div style={{ display: 'flex', marginLeft: ' 30px', alignItems: "center", marginTop: 50 }}>
-          <Avatar>{name.substring(0, 1).toUpperCase()}</Avatar>
-          <div style={{ marginLeft: '10px', marginTop: '10px' }}>
+          <Avatar  style={{color: 'black'}}>{name.substring(0, 1).toUpperCase()}</Avatar>
+          <div style={{marginLeft: '10px', color:'sandybrown'}}>
             {name}
             <div>
-              <select name="status" className="status">
+              <select name="status" className="status" style={{backgroundColor:"black", color:"sandybrown", borderColor:"black"}}>
                 <option value="Available" > Available</option>
                 <option value="Away" > Away</option>
                 <option value="Busy" > Busy</option>
               </select>
-              <Link to="/Dashboard2" >
-                <TimerIcon  style={{fontSize:'xx-large', marginLeft:'82%', marginTop:'-37%', marginBottom:'8%', color:'sandybrown'}} />
-              </Link>
-            </div>
+              </div>
           </div>
-          <div style={{
+           <div style={{
             height: 10, width: 10, borderRadius: 10,
             background: "green",
             position: "absolute", left: 60, top: 80
           }} />
+          <Link to="/Dashboard2" >
+                <TimerIcon  style={{fontSize:'xx-large', marginLeft:'85%',  color:'sandybrown'}} />
+              </Link>
         </div>
         <StopWatch user={user} setInputValue={(e) => setInputValue(e)} status={status} />
-        <div className="dashboard__container" style={{ marginTop: '40px' }}>
+        {/* <div className="dashboard__container" style={{ marginTop: '40px' }}>
           Logged in as
           <div style={{ marginTop: '15px' }}>{name}</div>
           <div >{user?.email}</div>
-        </div>
+        </div> */}
       </div>
       <div className="dash1" style={{ width: "80%", height: "100vh",backgroundSize:"cover", backgroundImage: 'url("https://img.freepik.com/free-photo/flat-lay-desk-arrangement-with-copy-space_23-2148928165.jpg?size=626&ext=jpg")', }}>
         < Dashboard1 onlinevalue={onlinevalue} />
