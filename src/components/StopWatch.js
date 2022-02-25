@@ -1,13 +1,13 @@
 
 import React, { useState, useRef, useEffect } from "react";
-// import { getDatabase, ref, onValue, push, onDisconnect, set, serverTimestamp } from "firebase/database";
+import { doc, getDoc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { db } from "./firebase";
 import {
 	Box, Typography, IconButton, Grid, makeStyles, Table, TableHead, TableRow, TableCell,
 	TableContainer, TableBody, Paper, Tooltip
 } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
-import { doc, setDoc, updateDoc } from "firebase/firestore"; 
 
 const useStyle = makeStyles((theme) => ({
 	root: {
@@ -57,7 +57,7 @@ const Stopwatch = (props) => {
 	const [isActive, setIsActive] = useState(false);
 	const [laps, setLaps] = useState(lapsDefault);
 	const intervalRef = useRef(0);
-
+	const [startTime, setStartTime] = useState(null);
 
 	const onChange = (event) => {
 		const newValue = event.target.value;
@@ -80,10 +80,36 @@ const Stopwatch = (props) => {
 			</>
 		);
 	};
-
-	const handelPlayPause = () => {
+	const docRef = doc(db, "data", props.user.uid);
+	const handelPlayPause = async () => {
 		setIsActive(!isActive);
+		console.log("nd,zjcbxdbmvx", isActive)
+		if (isActive) {
+
+			const docRef = doc(db, "data", props.user.uid);
+			const docSnap = await getDoc(docRef);
+
+			if (docSnap.exists()) {
+				const newdata = docSnap.data().timeLogs;
+				newdata.push({ startTime: startTime, endTime: new Date(),status:props?.status })
+				await updateDoc(docRef, {
+					timeLogs: newdata
+				});
+
+			} else {
+				const docData = {
+					updateTime: Timestamp.fromDate(new Date()),
+					timeLogs: [{ startTime: startTime, endTime: new Date(),status:props?.status }],
+				};
+				setDoc(doc(db, "data", props?.user?.uid), docData);
+			}
+			setStartTime(null);
+		}
+		else {
+			setStartTime(new Date())
+		}
 	};
+
 	const handelReset = () => {
 		setTime(0);
 		setIsActive(false);
@@ -150,8 +176,8 @@ const Stopwatch = (props) => {
 				</Grid>
 				<Grid item style={{ color: 'aquamarine' }}>{laps.lapsList.length > 0 && <Laps laps={laps} />}</Grid>
 			</Grid>
-			<div style={{ marginTop: '35px', marginLeft: '20px' }}>
-				<input placeholder="Online" onChange={onChange} style={{ fontSize: '20px', width: '70%' }} />
+			<div style={{ marginTop: '35px', marginLeft: '75px' }}>
+				<input placeholder="Online" onChange={onChange} style={{ fontSize: '20px', width: '60%',backgroundColor: 'black', color: 'white', border: '0px' }} />
 			</div>
 		</div>
 	);
@@ -161,14 +187,14 @@ const ControlButtons = ({
 	args: { time, isActive, handelPlayPause, handelLaps, handelReset, classes }
 }) => {
 	return (
-		< div style={{display: 'flex'}}>
+		< div style={{ display: 'flex', }}>
 			{/* play or pause stopwatch */}
-			<Tooltip title={isActive ? "Pause" : "Play"}>
+			<Tooltip title={isActive ? "Pause" : "Play"} style={{ backgroundColor: "white" }}>
 				<IconButton onClick={() => handelPlayPause()} >
 					{
 						{
-							true: <PauseCircleFilledIcon style={{fontSize:"35px"}} className={classes.pauseButton} />,
-							false: <PlayCircleFilledIcon style={{fontSize:"35px"}}className={classes.playButton} />
+							true: <PauseCircleFilledIcon style={{ fontSize: "15px" }} className={classes.pauseButton} />,
+							false: <PlayCircleFilledIcon style={{ fontSize: "15px" }} className={classes.playButton} />
 						}[isActive]
 					}
 				</IconButton>

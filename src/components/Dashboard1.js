@@ -1,12 +1,10 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { logout } from "./firebase";
 import { Avatar } from "@material-ui/core";
 import Dashboard2 from './Dashboard2';
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import { auth, db } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-
 
 export default function Dashboard1(props) {
   const { onlinevalue } = props;
@@ -31,29 +29,20 @@ export default function Dashboard1(props) {
     fetchUserName();
   }, [user, loading]);
 
-
-
   return (
-    <div>
-      <button className="dashboard__btn" onClick={logout} style={{ marginLeft: '92%' }}>
+    <div className='dash2' >
+      <button className="dashboard__btn" onClick={logout} style={{ marginLeft: '86%' }}>
         Logout
       </button>
-
       <div style={{ display: 'flex', marginLeft: '30px', alignItems: "center", marginTop: 50 }}>
-        <h2 style={{ marginLeft: '20%', marginBottom: '40px' }}> Desk Area</h2>
+        <h2 style={{ marginLeft: '40%', marginBottom: '40px' }}> Desk Area</h2>
         <Avatar style={{ marginLeft: '1%' }}>{name.substring(0, 1).toUpperCase()}</Avatar>
-        
-        
         <div style={{ marginLeft: '10px' }}>
-        
           <div className='val' style={{ marginBottom: '30px' }}>
             {onlinevalue}
           </div>
         </div>
       </div>
-      
-      <Dashboard2 />
     </div>
-    
   );
 }
