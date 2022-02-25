@@ -48,7 +48,7 @@ function Dashboard() {
   return (
     <div style={{ flexDirection: "row", display: "flex" }}>
       <div style={{ background: 'black', color: 'white', width: "20%", height: '100vh' }}>
-        <div style={{ display: 'flex', marginLeft: '30px', alignItems: "center", marginTop: 50 }}>
+        <div style={{ display: 'flex', marginLeft: ' 30px', alignItems: "center", marginTop: 50 }}>
           <Avatar>{name.substring(0, 1).toUpperCase()}</Avatar>
           <div style={{ marginLeft: '10px', marginTop: '10px' }}>
             {name}
