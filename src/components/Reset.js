@@ -9,7 +9,6 @@ function Reset() {
   const [email, setEmail] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/dashboard");
@@ -28,7 +27,6 @@ function Reset() {
         <button className="reset__btn" onClick={() => sendPasswordReset(email)}>
           Send password reset email
         </button>
-
         <div>
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
@@ -36,5 +34,4 @@ function Reset() {
     </div>
   );
 }
-
 export default Reset;                           

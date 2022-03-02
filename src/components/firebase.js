@@ -18,13 +18,13 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvvRjKXu1JQtFta5XQbwS57Gm-Exz_kUQ",
-  authDomain: "auth-development-4b760.firebaseapp.com",
-  databaseURL: "https://auth-development-4b760-default-rtdb.firebaseio.com",
-  projectId: "auth-development-4b760",
-  storageBucket: "auth-development-4b760.appspot.com",
-  messagingSenderId: "61638249314",
-  appId: "1:61638249314:web:5c8a7c832ae0d7a5c87a3b"
+  apiKey: "AIzaSyCUrIFCUDIK-WR1Zeb9bB5-HzjS5WqjKYU",
+  authDomain: "login-6e349.firebaseapp.com",
+  databaseURL: "https://login-6e349-default-rtdb.firebaseio.com",
+  projectId: "login-6e349",
+  storageBucket: "login-6e349.appspot.com",
+  messagingSenderId: "228797377533",
+  appId: "1:228797377533:web:5f663ad5c609ffcff04794"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -73,6 +73,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       email,
       onlineState:true
     });
+    
     localStorage.setItem("accessToken", user?.accessToken)
   } catch (err) {
     console.error(err);

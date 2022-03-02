@@ -6,13 +6,16 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import StopWatch from './StopWatch';
 import Dashboard1 from './Dashboard1';
 import { Avatar } from "@material-ui/core";
-import { FaStopwatch } from 'react-icons/fa';
+import TimerIcon from '@material-ui/icons/Timer';
+import { Link } from 'react-router-dom';
+import { getStatusColor } from "../utils/helper";
+import Background from '../assests/desk.jpg';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const [onlinevalue, setOnlinevalue] = useState("");
-
+  const [status, setStatus] = useState("Available");
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -22,7 +25,6 @@ function Dashboard() {
       localStorage.setItem('users', JSON.stringify(user));
       sessionStorage.setItem('users', JSON.stringify(user));
       return ({ user })
-
     } catch (err) {
       console.error(err);
     }
@@ -31,62 +33,60 @@ function Dashboard() {
   const setInputValue = (value) => {
     setOnlinevalue(value)
   }
-
   useEffect(() => {
     if (loading) return;
     fetchUserName();
   }, [user, loading]);
+
+  useEffect(() => {
+    const selected = document.querySelector('.status');
+    selected.addEventListener('change', (e) => {
+      console.log(",dsbhjfbdsg", e.target.value);
+      setStatus(e.target.value)
+    })
+  }, []);
   console.log(user);
+
+  
 
   return (
     <div style={{ flexDirection: "row", display: "flex" }}>
-      <div style={{ background: 'red', width: "20%", height: '100vh' }}>
+      <div style={{ background: 'black', color: 'sandybrown', width: "20%", height: '100vh' }}>
         <div style={{ display: 'flex', marginLeft: '30px', alignItems: "center", marginTop: 50 }}>
-          <Avatar>{name.substring(0, 1).toUpperCase()}</Avatar>
-          <div style={{ marginLeft: '10px' }}>
+          <Avatar style={{color: 'black'}}>{name.substring(0, 1).toUpperCase()}</Avatar>
+          <div style={{ marginLeft: '10px', marginTop: '10px' }}>
             {name}
-            <div style={{}}> 
-              {"Available"}
-           
-              <FaStopwatch  style={{ fontSize: '25px', marginLeft: '50px', color: 'blanchedalmond' }} />
+            <div style={{}}>
+              <select name="status" className="status" style={{backgroundColor:"black", color:"sandybrown", borderColor:"black"}}>
+                <option value="Available" > Available</option>
+                <option value="Away" > Away</option>
+                <option value="Busy" > Busy</option>
+              </select>
+              
             </div>
           </div>
           <div style={{
             height: 10, width: 10, borderRadius: 10,
-            background: "green",
+            background: getStatusColor(status),
             position: "absolute", left: 60, top: 80
           }} />
-
+          <Link to="/Dashboard2" >
+          <TimerIcon  style={{fontSize:'xx-large', marginLeft:'85%',  color:'sandybrown'}} />
+              </Link>
         </div>
-        <StopWatch setInputValue={(e) => setInputValue(e)} />
-
-        <div className="dashboard__container" style={{ marginTop: '40px' }}>
+        <StopWatch user={user} setInputValue={(e) => setInputValue(e)} status={status} />
+        {/* <div className="dashboard__container" style={{ marginTop: '40px' }}>
           Logged in as
-          <div>{name}</div>
+          <div style={{ marginTop: '15px' }}>{name}</div>
           <div >{user?.email}</div>
-          {/* <button className="dashboard__btn" onClick={logout}>
-          Logout
-        </button> */}
-        </div>
-        {/* <StopWatch /> */}
-
+        </div> */}
       </div>
-
-
-
-      <div style={{ background: "green", width: "80%", height: "100vh" }}>
+      <div className="dash1" style={{ width: "80%", height: "100vh",backgroundSize:"cover",  backgroundImage: 'url(' + Background + ')'}}>
         < Dashboard1 onlinevalue={onlinevalue} />
-        {/* <StopWatch /> */}
-
       </div>
-
-      {/* <Calender /> */}
-      {/* < Dashboard1 /> */}
-
     </div>
   );
 }
-
 export default Dashboard;
 
 
