@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { auth, db } from "./firebase";
-import { doc, getDoc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import DatePicker from 'react-multi-date-picker';
 import { Link } from 'react-router-dom';
@@ -44,19 +44,19 @@ const Cardss = (props) => {
         if (docSnap.exists()) {
             const newdata = docSnap.data();
             
-            const filterData = newdata?.timeLogs?.filter((i,x)=>moment(i?.startTime?.seconds*1000).format('YYYY/MM/DD')==moment(values).startOf('day').format('YYYY/MM/DD'))
+            const filterData = newdata?.timeLogs?.filter((i,x)=>moment(i?.startTime?.seconds*1000).format('YYYY/MM/DD')===moment(values).startOf('day').format('YYYY/MM/DD'))
             const totalTime = await addTimes(filterData)
 
             // for available time
-            const availableFilterData = filterData?.filter((i,x)=>i?.status =="Available")
+            const availableFilterData = filterData?.filter((i,x)=>i?.status ==="Available")
             const availbleTime = await addTimes(availableFilterData)
 
-            //for bus time
-            const busyFilterData = filterData?.filter((i,x)=>i?.status =="Busy")
+            //for busy time
+            const busyFilterData = filterData?.filter((i,x)=>i?.status ==="Busy")
             const busyTime = await addTimes(busyFilterData)
 
             //for away time 
-            const awayFilterData = filterData?.filter((i,x)=>i?.status =="Away")
+            const awayFilterData = filterData?.filter((i,x)=>i?.status ==="Away")
             const awayTime = await addTimes(awayFilterData)
 
 

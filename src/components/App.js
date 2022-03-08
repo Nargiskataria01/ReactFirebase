@@ -9,7 +9,7 @@ import { auth } from "./firebase";
 import Dashboard2 from "./Dashboard2"
 
 function App() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   console.log(user);
   return (
     <div className="app">
@@ -20,11 +20,10 @@ function App() {
           <Route exact path="/dashboard" element={user?.accessToken ? <Dashboard /> : <Navigate to="/login" />} />
           <Route exact path="/login" element={user?.accessToken ? <Navigate to="/dashboard" /> : <Login />} />
           <Route exact path="/register" element={<Register />} />
-          <Route exact path='/dashboard2'element={user?.accessToken ? <Dashboard2/> : <Navigate to="/dashboard2" />}/>
+          <Route exact path="/dashboard2" element={<Dashboard2 />} />
         </Routes>
       </Router>
     </div>
   );
 }
-
 export default App;   

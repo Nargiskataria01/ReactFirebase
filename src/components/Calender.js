@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import DatePicker from "react-multi-date-picker";
-import { logout } from "./firebase";
 import { Link } from 'react-router-dom';
 
 export default function Calender(props) {

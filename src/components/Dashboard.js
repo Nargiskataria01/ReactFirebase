@@ -21,6 +21,7 @@ function Dashboard() {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
+      
       setName(data.name);
       localStorage.setItem('users', JSON.stringify(user));
       sessionStorage.setItem('users', JSON.stringify(user));
@@ -29,7 +30,6 @@ function Dashboard() {
       console.error(err);
     }
   };
-
   const setInputValue = (value) => {
     setOnlinevalue(value)
   }
@@ -45,35 +45,37 @@ function Dashboard() {
       setStatus(e.target.value)
     })
   }, []);
-  console.log(user);
-
   
+  console.log(user);
 
   return (
     <div style={{ flexDirection: "row", display: "flex" }}>
       <div style={{ background: 'black', color: 'sandybrown', width: "20%", height: '100vh' }}>
         <div style={{ display: 'flex', marginLeft: '30px', alignItems: "center", marginTop: 50 }}>
           <Avatar style={{color: 'black'}}>{name.substring(0, 1).toUpperCase()}</Avatar>
+
           <div style={{ marginLeft: '10px', marginTop: '10px' }}>
             {name}
-            <div style={{}}>
+            <div>
+
               <select name="status" className="status" style={{backgroundColor:"black", color:"sandybrown", borderColor:"black"}}>
                 <option value="Available" > Available</option>
                 <option value="Away" > Away</option>
                 <option value="Busy" > Busy</option>
               </select>
-              
             </div>
           </div>
+
           <div style={{
             height: 10, width: 10, borderRadius: 10,
             background: getStatusColor(status),
             position: "absolute", left: 60, top: 80
           }} />
-          <Link to="/Dashboard2" >
+           <Link to="/Dashboard2" >
           <TimerIcon  style={{fontSize:'xx-large', marginLeft:'85%',  color:'sandybrown'}} />
               </Link>
         </div>
+
         <StopWatch user={user} setInputValue={(e) => setInputValue(e)} status={status} />
         {/* <div className="dashboard__container" style={{ marginTop: '40px' }}>
           Logged in as
@@ -88,7 +90,3 @@ function Dashboard() {
   );
 }
 export default Dashboard;
-
-
-
-

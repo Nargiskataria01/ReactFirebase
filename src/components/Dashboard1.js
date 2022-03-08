@@ -8,6 +8,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 export default function Dashboard1(props) {
   const { onlinevalue } = props;
   const [name, setName] = useState("");
+  const [onlineState, setOnlineState] = useState("");
   const [user, loading] = useAuthState(auth);
   const fetchUserName = async () => {
     try {
@@ -15,6 +16,7 @@ export default function Dashboard1(props) {
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
       setName(data.name);
+      setOnlineState(data?.onlineState);
       localStorage.setItem('users', JSON.stringify(user));
       sessionStorage.setItem('users', JSON.stringify(user));
       return ({ user })
@@ -28,18 +30,17 @@ export default function Dashboard1(props) {
     fetchUserName();
   }, [user, loading]);
 
- 
   return (
     <div className='dash2' >
-      <button className="dashboard__btn" onClick={logout} style={{marginLeft: '86%'}}>
+      <button className="dashboard__btn" onClick={logout} style={{ marginLeft: '86%' }}>
         Logout
       </button>
       <div style={{ display: 'flex', marginLeft: '30px', alignItems: "center", marginTop: 50 }}>
         <h2 style={{ marginLeft: '40%', marginBottom: '40px' }}> Desk Area</h2>
         <Avatar style={{ marginLeft: '1%', color:'black' }}>{name.substring(0, 1).toUpperCase()}</Avatar>
         <div style={{ marginLeft: '10px' }}>
-          <div className='val' style={{ marginBottom: '30px' }}>
-            {onlinevalue}
+          <div className='val' style={{ marginBottom: '30px' }}>   
+        <input placeholder='Online' value={onlinevalue||onlineState } style={{ fontSize: '20px', width: '60%', border: '0px', backgroundColor:'transparent'}}/> 
           </div>
         </div>
       </div>
