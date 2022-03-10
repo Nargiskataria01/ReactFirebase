@@ -7,24 +7,18 @@ import "./Reset.css";
 
 function Reset() {
   const [email, setEmail] = useState("");
-  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (loading) return;
-    if (user) navigate("/dashboard");
-  }, [user, loading]);
 
   return (
     <div className="reset">
       <div className="reset__container">
-        <input
-          type="text"
+        <input type="text"
           className="reset__textBox"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="E-mail Address"
         />
-        <button className="reset__btn" onClick={() => sendPasswordReset(email)}>
+        <button className="reset__btn" onClick={() => sendPasswordReset(email,navigate)}>
           Send password reset email
         </button>
         <div>
@@ -34,5 +28,4 @@ function Reset() {
     </div>
   );
 }
-export default Reset;      
-                     
+export default Reset;                           

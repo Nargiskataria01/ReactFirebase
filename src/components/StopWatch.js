@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { collection, doc, getDoc, getDocs, query, setDoc, Timestamp, updateDoc, where } from "firebase/firestore";
 import { db } from "./firebase";
@@ -52,16 +53,15 @@ const lapsDefault = {
 };
 
 const Stopwatch = (props) => {
-	
 	const [time, setTime] = useState(0.0);
 	const [isActive, setIsActive] = useState(false);
 	const [laps, setLaps] = useState(lapsDefault);
 	const intervalRef = useRef(0);
 	const [startTime, setStartTime] = useState(null);
 
-	const updateUserDoc =(newValue)=>{
-		setTimeout(async() => {
-			const docRef =  query(collection(db, "users"), where("uid", "==", props?.user?.uid));
+	const updateUserDoc = (newValue) => {
+		setTimeout(async () => {
+			const docRef = query(collection(db, "users"), where("uid", "==", props?.user?.uid));
 			const docSnap = await getDocs(docRef);
 			const data = docSnap.docs[0].data();
 			if (data) {
@@ -75,13 +75,13 @@ const Stopwatch = (props) => {
 			}
 		}, 2000);
 	}
-	const onChange = async(event) => {
+	const onChange = async (event) => {
 		const newValue = event.target.value;
-		localStorage.setItem("person",newValue)
+		localStorage.setItem("person", newValue)
 		props.setInputValue(newValue)
 		updateUserDoc(newValue)
 	};
-	
+
 
 	const formatTime = () => {
 		const sec = `${Math.floor(time) % 60}`.padStart(2, "0");
@@ -89,7 +89,7 @@ const Stopwatch = (props) => {
 		const hour = `${Math.floor(time / 3600)}`.padStart(2, "0");
 		return (
 			<>
-				<Typography variant="h1" style={{ fontSize: '35px' }}>{[hour, min, sec].join(":")}</Typography>
+				<Typography variant="h1" style={{ fontSize: '35px'}}>{[hour, min, sec].join(":")}</Typography>
 				<Box className={classes.labelTime}>
 					{["hr", "min", "sec"].map((unit) => (
 						<Typography key={unit} vairant="overline">
@@ -162,6 +162,7 @@ const Stopwatch = (props) => {
 		setLaps(newLaps);
 	};
 	useEffect(() => {
+		console.log("ashagsdfasghdfghasdghas");
 		if (isActive) {
 			intervalRef.current = setTimeout(() => {
 				const t = time + 0.1
@@ -176,6 +177,7 @@ const Stopwatch = (props) => {
 		const pausedtime = localStorage.getItem("pausedtime")
 		const pausedtimeParsed = JSON.parse(pausedtime)
 		setTime(pausedtimeParsed)
+		return () => null
 	}, []);
 
 	const classes = useStyle();
@@ -207,8 +209,8 @@ const Stopwatch = (props) => {
 			</Grid>
 
 			<div style={{ marginTop: '35px', marginLeft: '75px' }}>
-			
-	  	<input placeholder="Online Log" onChange={onChange} style={{ fontSize: '20px', width: '60%', backgroundColor: 'black', color: 'white', border: '0px' }} />
+
+				<input placeholder="Online Log" onChange={onChange} style={{ fontSize: '20px', width: '60%', marginTop: "30px", backgroundColor: 'black', color: 'white', border: '0px' }} />
 			</div>
 
 		</div>
@@ -227,8 +229,8 @@ const ControlButtons = ({
 				<IconButton onClick={() => handelPlayPause()} >
 					{
 						{
-							true: <PauseCircleFilledIcon  className={classes.pauseButton} />,
-							false: <PlayCircleFilledIcon  className={classes.playButton} />
+							true: <PauseCircleFilledIcon className={classes.pauseButton} />,
+							false: <PlayCircleFilledIcon className={classes.playButton} />
 						}[isActive]
 					}
 				</IconButton>
